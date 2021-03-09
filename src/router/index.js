@@ -4,7 +4,8 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register'
 import Rooms from '../views/Rooms'
-import CheckIn from '../views/CheckIn';
+import CheckIn from '../views/CheckIn'
+import Chat from '../views/Chat'
 
 Vue.use(VueRouter)
 
@@ -33,6 +34,11 @@ const routes = [
     path: '/checkin/:hostID/:roomID',
     name: 'CheckIn',
     component: CheckIn
+  },
+  {
+    path: '/chat/:hostID/:roomID',
+    name: 'Chat',
+    component: Chat
   },
   {
     path: '*',

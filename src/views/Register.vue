@@ -99,7 +99,7 @@
                                 displayName: info.displayName
                             })
                             .then(() => {
-                                this.$router.replace('/')
+                                this.$router.replace('/rooms')
                             })
                         },
                         error => {
