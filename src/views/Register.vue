@@ -73,7 +73,7 @@
     </div>
 </template>
 <script>
-    import firebase from 'firebase'
+    import Firebase from 'firebase'
     export default {
         data: function() {
             return {
@@ -84,37 +84,38 @@
                 error: null
             }
         },
-        methods:{
-            register: function () {
+        methods: {
+            register: function() {
                 const info = {
                     email: this.email,
                     password: this.passTwo,
                     displayName: this.displayName
                 }
-                if (!this.error){
-                    firebase.auth().createUserWithEmailAndPassword(info.email, info.password)
-                    .then(
-                        userCredentials => {
-                            return userCredentials.user.updateProfile({
-                                displayName: info.displayName
-                            })
-                            .then(() => {
-                                this.$router.replace('/rooms')
-                            })
-                        },
-                        error => {
-                            this.error = error.message
-                        }
-                    )
+                if (!this.error) {
+                    Firebase.auth()
+                        .createUserWithEmailAndPassword(info.email, info.password)
+                        .then(
+                            userCredentials => {
+                                return userCredentials.user
+                                    .updateProfile({
+                                        displayName: info.displayName
+                                    })
+                                    .then(() => {
+                                        this.$router.replace('/rooms')
+                                    })
+                            },
+                            error => {
+                                this.error = error.message
+                            }
+                        )
                 }
-
             }
         },
         watch: {
-            passTwo: function () {
-                if (this.passOne !== '' && this.passTwo !== '' && this.passOne !== this.passTwo){
-                    this.error = 'Passwords must match'
-                } else{
+            passTwo: function() {
+                if (this.passOne !== '' && this.passTwo !== '' && this.passTwo !== this.passOne) {
+                    this.error = 'passwords must match'
+                } else {
                     this.error = null
                 }
             }

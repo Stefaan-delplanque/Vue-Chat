@@ -2,10 +2,10 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
-import Register from '../views/Register'
-import Rooms from '../views/Rooms'
-import CheckIn from '../views/CheckIn'
-import Chat from '../views/Chat'
+import Register from '../views/Register.vue'
+import Rooms from '../views/Rooms.vue'
+import CheckIn from '../views/CheckIn.vue'
+import Chat from '../views/Chat.vue'
 
 Vue.use(VueRouter)
 

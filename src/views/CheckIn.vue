@@ -11,7 +11,7 @@
                             </p>
                             <section class="form-group">
                                 <label class="form-control-label sr-only" for="displayName">Name</label>
-                                <input required class="form-control" type="text" v-model="displayName"/>
+                                <input required class="form-control" type="text" v-model="displayName" />
                             </section>
                             <div class="form-group text-right mb-0">
                                 <button class="btn btn-primary" type="submit">Check in</button>
@@ -21,10 +21,8 @@
                             <h1 class="text-danger card-title ">Sorry</h1>
                             <p class="card-text lead">
                                 Sorry, access to rooms is only available to registered users. Please
-                                <router-link to="/login">login</router-link>
-                                or
-                                <router-link to="/register">register</router-link>
-                                and try again.
+                                <router-link to="/login">login</router-link> or
+                                <router-link to="/register">register</router-link> and try again.
                             </p>
                         </div>
                     </div>
@@ -33,21 +31,18 @@
         </div>
     </form>
 </template>
-
 <script>
-    import firebase from 'firebase'
+    import Firebase from 'firebase'
     import db from '../db.js'
-
     export default {
-        name: 'CheckIn.vue',
-        data: function () {
+        data: function() {
             return {
                 displayName: null,
                 roomName: null
             }
         },
         methods: {
-            handleCheckIn: function () {
+            handleCheckIn: function() {
                 this.$emit('checkIn', {
                     hostID: this.$route.params.hostID,
                     roomID: this.$route.params.roomID,
@@ -57,19 +52,26 @@
         },
         props: ['user'],
         mounted() {
-            firebase.auth().onAuthStateChanged(user => {
+            //Get the User's displayName
+            Firebase.auth().onAuthStateChanged(user => {
                 if (user) {
                     this.displayName = user.displayName
                 }
             })
-            db.collection('users').doc(this.$route.params.hostID).collection('rooms')
-                .doc(this.$route.params.roomID).get().then(doc => {
-                if (doc.exists) {
-                    this.roomName = doc.data().name
-                } else {
-                    this.$router.replace('/')
-                }
-            })
+
+            //Get the Room Name
+            db.collection('users')
+                .doc(this.$route.params.hostID)
+                .collection('rooms')
+                .doc(this.$route.params.roomID)
+                .get()
+                .then(doc => {
+                    if (doc.exists) {
+                        this.roomName = doc.data().name
+                    } else {
+                        this.$router.replace('/')
+                    }
+                })
         }
     }
 </script>
